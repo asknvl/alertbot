@@ -1,0 +1,12 @@
+{
+  "bot": {
+    "token": ""
+  },
+  "receiver": {
+    "port": 5050
+  },
+  "keepalive": {
+    "url": "",
+    "period": 10
+  }
+}
