@@ -1,5 +1,7 @@
-﻿using alertbot.rest;
+﻿using alertbot.logger;
+using alertbot.rest;
 using alertbot.users;
+using Newtonsoft.Json.Linq;
 using servicecontrolhub.config;
 using servicecontrolhub.monitors.protocol.dtos;
 using System;
@@ -17,7 +19,8 @@ namespace alertbot.bot
 {
     public abstract class BotBase : IDiagnosticsPresenter
     {
-        #region const        
+        #region const      
+        string TAG = "BOT";
         #endregion
 
         #region vars
@@ -26,6 +29,7 @@ namespace alertbot.bot
         UserManager userManager = new();
 
         bot_settings settings;
+        ILogger logger;
         #endregion
 
         #region properties
@@ -34,6 +38,7 @@ namespace alertbot.bot
         public BotBase(bot_settings settings)
         {
             this.settings = settings;
+            logger = new Logger("bot");
         }
 
         #region helpers
@@ -102,8 +107,14 @@ namespace alertbot.bot
         #region public
         public virtual async Task Start()
         {
+
 #if DEBUG
             bot = new TelegramBotClient(settings.token);
+            
+#else     
+            bot = new TelegramBotClient(new TelegramBotClientOptions(settings.token, "http://localhost:8081/bot/"));
+#endif
+
             cts = new CancellationTokenSource();
 
             var receiverOptions = new ReceiverOptions
@@ -112,8 +123,17 @@ namespace alertbot.bot
             };
 
             bot.StartReceiving(HandleUpdateAsync, HandleErrorAsync, receiverOptions, cts.Token);
-#else
-#endif
+
+            try
+            {
+                var me = await bot.GetMeAsync();
+                logger.inf(TAG, $"{me.Username} started");
+                
+            } catch (Exception ex)
+            {
+                logger.err(TAG, $"{settings.token} {ex.Message}");
+            }
+
         }
 
         public void Stop()

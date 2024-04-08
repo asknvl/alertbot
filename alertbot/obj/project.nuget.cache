@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "RyoQZz4CKv5RxVBMKDHCh0cCNTgRLuEuVK/Op6m+iSCnRZL0GOgPxVWLIhr/k1KOh7ENpJuOq1jsU+cIRZO8XQ==",
+  "dgSpecHash": "37nJ6lNdYVfIG7wUPhTvjUCyeVMTmTgQpoaLR4td0TvKG6hSiitiShy4uJhFjziu7tlGN9LjSL5jjplYLXI7JQ==",
   "success": true,
-  "projectFilePath": "C:\\WORK\\RaceUP\\sources\\alertbot\\alertbot\\alertbot.csproj",
+  "projectFilePath": "C:\\sources\\alertbot\\alertbot\\alertbot.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\asknvl\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
-    "C:\\Users\\asknvl\\.nuget\\packages\\telegram.bot\\19.0.0\\telegram.bot.19.0.0.nupkg.sha512"
+    "C:\\Users\\user3876\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\user3876\\.nuget\\packages\\telegram.bot\\19.0.0\\telegram.bot.19.0.0.nupkg.sha512"
   ],
   "logs": []
 }

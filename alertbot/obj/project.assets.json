@@ -86,19 +86,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\asknvl\\.nuget\\packages\\": {}
+    "C:\\Users\\user3876\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\WORK\\RaceUP\\sources\\alertbot\\alertbot\\alertbot.csproj",
+      "projectUniqueName": "C:\\sources\\alertbot\\alertbot\\alertbot.csproj",
       "projectName": "alertbot",
-      "projectPath": "C:\\WORK\\RaceUP\\sources\\alertbot\\alertbot\\alertbot.csproj",
-      "packagesPath": "C:\\Users\\asknvl\\.nuget\\packages\\",
-      "outputPath": "C:\\WORK\\RaceUP\\sources\\alertbot\\alertbot\\obj\\",
+      "projectPath": "C:\\sources\\alertbot\\alertbot\\alertbot.csproj",
+      "packagesPath": "C:\\Users\\user3876\\.nuget\\packages\\",
+      "outputPath": "C:\\sources\\alertbot\\alertbot\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\asknvl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\user3876\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -145,7 +145,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
