@@ -1,9 +1,9 @@
 {
   "bot": {
-    "token": ""
+    "token": "7039079150:AAFFi9LZzEJOuSM2gjV61RKDSnBtD-QRLaI"
   },
   "receiver": {
-    "port": 5050
+    "port": 5000
   },
   "keepalive": {
     "url": "",

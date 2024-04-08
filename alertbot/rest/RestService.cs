@@ -1,4 +1,5 @@
 ﻿using alertbot.logger;
+using aviatorbot.rest;
 using System.Net;
 using System.Text;
 
@@ -12,14 +13,16 @@ namespace servicecontrolhub.rest
 
         #region vars        
         ILogger logger;
+        int port;
         #endregion
 
         #region properties
         public List<IRequestProcessor> RequestProcessors { get; set; } = new();
         #endregion
 
-        public RestService()
+        public RestService(int port)
         {
+            this.port = port;
             logger = new Logger("rest");
         }
 
@@ -50,6 +53,14 @@ namespace servicecontrolhub.rest
                 {
                     switch (splt[1])
                     {
+                        case "diagnostics":
+                            var p = RequestProcessors.FirstOrDefault(p => p is PresentDiagnosticsRequestProcessor);
+                            if (p != null)
+                            {
+                                (code, text) = await p.ProcessRequestData(requestBody);
+                            }
+                            break;
+                        
                         default:
                             break;
                     }
@@ -103,15 +114,15 @@ namespace servicecontrolhub.rest
         {
             var listener = new HttpListener();
 #if DEBUG            
-            listener.Prefixes.Add($"http://*:5050/diagnostics/");
+            listener.Prefixes.Add($"http://*:{port}/diagnostics/");
 #elif DEBUG_TG_SERV
-            listener.Prefixes.Add($"http://localhost:5050/diagnostics/");            
+            listener.Prefixes.Add($"http://localhost:{port}/diagnostics/");            
 #else
-            listener.Prefixes.Add($"http://*:5000/diagnostics/");            
+            listener.Prefixes.Add($"http://*:{port}/diagnostics/");            
 #endif
             try
             {
-                logger.inf(TAG, "Starting rest server...");
+                logger.inf(TAG, $"Starting rest server on port {port}...");
                 listener.Start();
             }
             catch (Exception ex)

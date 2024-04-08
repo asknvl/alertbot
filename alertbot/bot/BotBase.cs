@@ -63,10 +63,12 @@ namespace alertbot.bot
                             {
                                 case var _ when text == settings.user_password:
                                     userManager.Add(chat, un: un, fn: fn, ln: ln);
+                                    await bot.SendTextMessageAsync(chat, "Теперь вам будут приходить оповещения об ошибках в сервисах");
                                     break;
 
                                 case var _ when text == settings.admin_password:
                                     userManager.Add(chat, un: un, fn: fn, ln: ln, is_admin: true);
+                                    await bot.SendTextMessageAsync(chat, "Теперь вам будут приходить оповещения об ошибках в сервисах");
                                     break;
 
                                 default:
@@ -130,8 +132,14 @@ namespace alertbot.bot
                     try
                     {
 
-                        string message = "";
-                        await bot.SendTextMessageAsync(user.tg_id, message);
+                        string message = $"*❌{data.service_name}*\n";
+
+                        foreach (var item in data.errors)
+                        {
+                            message += $"*{item.entity}*: {item.description}";
+                        }
+
+                        await bot.SendTextMessageAsync(user.tg_id, message, parseMode: ParseMode.Markdown );
 
                     }
                     catch (Exception ex)

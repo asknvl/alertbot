@@ -9,12 +9,15 @@ namespace alertbot
     {
         static void Main(string[] args)
         {
-            RestService restService = new RestService();   
+            Settings settings = Settings.getInstance();
+
+            RestService restService = new RestService(settings.config.receiver.port);   
             PresentDiagnosticsRequestProcessor presentDiagnosticsRequestProcessor = new PresentDiagnosticsRequestProcessor();
             restService.RequestProcessors.Add(presentDiagnosticsRequestProcessor);
 
-            Settings settings = Settings.getInstance();
+            
             BotBase bot = new alertbot_v0(settings.config.bot);
+            presentDiagnosticsRequestProcessor.Add(bot);
 
             restService.Listen();
 

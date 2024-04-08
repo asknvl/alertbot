@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "tg_id": 1481806946,
+    "un": "alexey_raceup",
+    "fn": "Alexey",
+    "ln": null,
+    "is_admin": false
+  },
+  {
+    "tg_id": -4159017633,
+    "un": null,
+    "fn": null,
+    "ln": null,
+    "is_admin": false
+  }  
+]
