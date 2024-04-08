@@ -1,6 +1,7 @@
-﻿using alertbot.notifier;
+﻿using alertbot.rest;
 using alertbot.users;
 using servicecontrolhub.config;
+using servicecontrolhub.monitors.protocol.dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace alertbot.bot
 {
-    public abstract class BotBase : INotifier
+    public abstract class BotBase : IDiagnosticsPresenter
     {
         #region const        
         #endregion
@@ -100,7 +101,7 @@ namespace alertbot.bot
         public virtual async Task Start()
         {
 #if DEBUG
-            bot = new TelegramBotClient(token);
+            bot = new TelegramBotClient(settings.token);
             cts = new CancellationTokenSource();
 
             var receiverOptions = new ReceiverOptions
@@ -117,7 +118,7 @@ namespace alertbot.bot
         {
         }
 
-        public async Task AlertNotify(string message)
+        public async Task PresentDiagnosicsData(serviceDiagnosticsDto data)
         {
             try
             {
@@ -129,15 +130,18 @@ namespace alertbot.bot
                     try
                     {
 
+                        string message = "";
                         await bot.SendTextMessageAsync(user.tg_id, message);
 
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
 
                     }
                 }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
 
             }

@@ -1,0 +1,15 @@
+﻿using alertbot.rest;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace aviatorbot.rest
+{
+    public interface IPresentDiagnosticsObservable
+    {
+        void Add(IDiagnosticsPresenter presenter);
+        void Remove(IDiagnosticsPresenter presenter);
+    }
+}

@@ -36,7 +36,7 @@ namespace servicecontrolhub.config
         public int port { get; set; } = 5050;
     }
 
-    public class keepalive_settins
+    public class keepalive_settings
     {
         public string url { get; set; } = "";
         public int period { get; set; } = 10;
@@ -53,7 +53,7 @@ namespace servicecontrolhub.config
     {
         public bot_settings bot { get; set; } = new();
         public receiver_settings receiver { get; set; } = new();
-        public keepalive_settins keepalive { get; set; } = new();        
+        public keepalive_settings keepalive { get; set; } = new();        
 
         public Config()
         {            
