@@ -9,7 +9,7 @@ namespace alertbot.bot
 {
     public class alertbot_v0 : BotBase
     {
-        public alertbot_v0(bot_settings settings) : base(settings)
+        public alertbot_v0(Settings settings) : base(settings)
         {
         }
     }

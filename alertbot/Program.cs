@@ -16,7 +16,7 @@ namespace alertbot
             restService.RequestProcessors.Add(presentDiagnosticsRequestProcessor);
 
             
-            BotBase bot = new alertbot_v0(settings.config.bot);
+            BotBase bot = new alertbot_v0(settings);
             presentDiagnosticsRequestProcessor.Add(bot);
 
             restService.Listen();

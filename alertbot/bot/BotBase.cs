@@ -1,5 +1,6 @@
 ﻿using alertbot.logger;
 using alertbot.rest;
+using alertbot.server;
 using alertbot.users;
 using Newtonsoft.Json.Linq;
 using servicecontrolhub.config;
@@ -28,17 +29,59 @@ namespace alertbot.bot
         CancellationTokenSource cts;
         UserManager userManager = new();
 
-        bot_settings settings;
+        Settings settings;
         ILogger logger;
+        IHubApi hubApi;
+        System.Timers.Timer keepAliveTimer;
         #endregion
 
         #region properties
         #endregion
 
-        public BotBase(bot_settings settings)
+        public BotBase(Settings settings)
         {
             this.settings = settings;
             logger = new Logger("bot");
+            hubApi = new HubApi(settings.config.keepalive.url);
+
+            keepAliveTimer = new System.Timers.Timer();
+            keepAliveTimer.Interval = settings.config.keepalive.period * 1000;
+            keepAliveTimer.Elapsed += KeepAliveTimer_Elapsed;
+            keepAliveTimer.AutoReset = true;
+            keepAliveTimer.Start();
+        }
+
+        private async void KeepAliveTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+        {
+            bool res = false;
+            try
+            {
+                int cntr = await hubApi.KeepAliveRequest();
+                res = true;                     
+
+            } catch (Exception ex)
+            {
+            }
+
+
+            if (!res)
+            {
+                var users = userManager.Get();
+                foreach (var user in users)
+                {
+
+                    try
+                    {
+                        string message = $"*❌ Хаб-сервис недоступен*";
+                        await bot.SendTextMessageAsync(user.tg_id, message, parseMode: ParseMode.Markdown);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.err(TAG, $"KeepAliveTimer: {ex.Message}");
+                    }
+                }
+            }
+
         }
 
         #region helpers
@@ -66,12 +109,12 @@ namespace alertbot.bot
 
                             switch (text)
                             {
-                                case var _ when text == settings.user_password:
+                                case var _ when text == settings.config.bot.user_password:
                                     userManager.Add(chat, un: un, fn: fn, ln: ln);
                                     await bot.SendTextMessageAsync(chat, "Теперь вам будут приходить оповещения об ошибках в сервисах");
                                     break;
 
-                                case var _ when text == settings.admin_password:
+                                case var _ when text == settings.config.bot.admin_password:
                                     userManager.Add(chat, un: un, fn: fn, ln: ln, is_admin: true);
                                     await bot.SendTextMessageAsync(chat, "Теперь вам будут приходить оповещения об ошибках в сервисах");
                                     break;
@@ -112,7 +155,7 @@ namespace alertbot.bot
             bot = new TelegramBotClient(settings.token);
             
 #else     
-            bot = new TelegramBotClient(new TelegramBotClientOptions(settings.token, "http://localhost:8081/bot/"));
+            bot = new TelegramBotClient(new TelegramBotClientOptions(settings.config.bot.token, "http://localhost:8081/bot/"));
 #endif
 
             cts = new CancellationTokenSource();
@@ -131,7 +174,7 @@ namespace alertbot.bot
                 
             } catch (Exception ex)
             {
-                logger.err(TAG, $"{settings.token} {ex.Message}");
+                logger.err(TAG, $"{settings.config.bot.token} {ex.Message}");
             }
 
         }
