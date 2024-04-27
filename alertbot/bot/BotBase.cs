@@ -33,6 +33,8 @@ namespace alertbot.bot
         ILogger logger;
         IHubApi hubApi;
         System.Timers.Timer keepAliveTimer;
+
+        int keepAliveCounter = 0;
         #endregion
 
         #region properties
@@ -56,7 +58,7 @@ namespace alertbot.bot
             bool res = false;
             try
             {
-                int cntr = await hubApi.KeepAliveRequest();
+                keepAliveCounter = await hubApi.KeepAliveRequest();
                 res = true;                     
 
             } catch (Exception ex)
@@ -117,6 +119,15 @@ namespace alertbot.bot
                                 case var _ when text == settings.config.bot.admin_password:
                                     userManager.Add(chat, un: un, fn: fn, ln: ln, is_admin: true);
                                     await bot.SendTextMessageAsync(chat, "Теперь вам будут приходить оповещения об ошибках в сервисах");
+                                    break;
+
+                                case "/check":
+                                    try
+                                    {
+                                        await bot.SendTextMessageAsync(chat, $"keepAliveCounter={keepAliveCounter}");
+                                    } catch (Exception ex)
+                                    {
+                                    }
                                     break;
 
                                 default:

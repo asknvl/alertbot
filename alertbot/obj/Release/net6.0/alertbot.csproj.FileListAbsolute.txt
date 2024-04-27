@@ -43,3 +43,11 @@ C:\WORK\RaceUP\sources\alertbot\alertbot\bin\Release\net6.0\Telegram.Bot.dll
 C:\WORK\RaceUP\sources\alertbot\alertbot\obj\Release\net6.0\alertbot.csproj.Up2Date
 C:\WORK\RaceUP\sources\alertbot\alertbot\obj\Release\net6.0\alertbot.genruntimeconfig.cache
 C:\WORK\RaceUP\sources\alertbot\alertbot\obj\Release\net6.0\ref\alertbot.dll
+C:\sources\alertbot\alertbot\bin\Release\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\sources\alertbot\alertbot\bin\Release\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\sources\alertbot\alertbot\bin\Release\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\sources\alertbot\alertbot\bin\Release\net6.0\Microsoft.Extensions.Http.dll
+C:\sources\alertbot\alertbot\bin\Release\net6.0\Microsoft.Extensions.Logging.dll
+C:\sources\alertbot\alertbot\bin\Release\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\sources\alertbot\alertbot\bin\Release\net6.0\Microsoft.Extensions.Options.dll
+C:\sources\alertbot\alertbot\bin\Release\net6.0\Microsoft.Extensions.Primitives.dll

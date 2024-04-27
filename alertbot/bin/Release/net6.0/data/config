@@ -6,7 +6,7 @@
     "port": 5000
   },
   "keepalive": {
-    "url": "",
+    "url": "http://88.99.51.109:5100",
     "period": 10
   }
 }
